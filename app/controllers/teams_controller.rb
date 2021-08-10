@@ -22,25 +22,25 @@ class TeamsController < ApplicationController
     @team.owner = current_user
     if @team.save
       @team.invite_member(@team.owner)
-      redirect_to @team, notice: I18n.t('views.messages.create_team')
+      redirect_to @team, notice: 'チーム作成に成功しました！'
     else
-      flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
+      flash.now[:error] = '保存に失敗しました、、'
       render :new
     end
   end
 
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: I18n.t('views.messages.update_team')
+      redirect_to @team, notice: 'チーム更新に成功しました！'
     else
-      flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
+      flash.now[:error] = '保存に失敗しました、、'
       render :edit
     end
   end
 
   def destroy
     @team.destroy
-    redirect_to teams_url, notice: I18n.t('views.messages.delete_team')
+    redirect_to teams_url, notice: 'チーム削除に成功しました！'
   end
 
   def dashboard
