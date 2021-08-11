@@ -14,7 +14,7 @@
             <%= link_to I18n.t('views.messages.edit_team'), team_path(@team), class: 'btn btn-success btn-block mt-3' %>
             <% else %>
             <%= link_to I18n.t('views.messages.edit_team'), edit_team_path(@team), class: 'btn btn-success btn-block mt-3' %>
-            <% end %>
+           <%end%>
           </div>
 
           <div class="col-md-8">
@@ -45,7 +45,16 @@
                     <tr>
                       <td><%= image_tag 'default.jpg', size: '40x40' %></td>
                       <td><%= assign.user.email %></td>
-                      <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+                      <% if current_user == @team.owner && assign.user != @team.owner %>
+                        <td>
+                        <%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %>
+                        <%= link_to 'Give authority', team_owner_path(@team, assign), class: 'btn btn-sm btn-success' %>
+                        </td>
+                      <% else %>
+                        <td>
+                        <%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %>
+                        </td>
+                        <%end%>
                     </tr>
                   <% end %>
                 </tbody>
